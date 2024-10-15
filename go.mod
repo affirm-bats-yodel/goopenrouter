@@ -1,4 +1,4 @@
-module github.com/affirm-bats-yodel/openrouter
+module github.com/affirm-bats-yodel/goopenrouter
 
 go 1.23.2
 
