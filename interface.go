@@ -6,5 +6,8 @@ import "context"
 //
 // - Define a functions to implement
 type ClientInterface interface {
-	Models(ctx context.Context, parameters ...string)
+	// GetModels Get Model Information
+	GetModels(ctx context.Context, parameters ...string)
+	// GetLimits Get Limit Information
+	GetLimits(ctx context.Context) (*LimitResponse, error)
 }
