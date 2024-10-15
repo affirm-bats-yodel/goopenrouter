@@ -8,6 +8,10 @@ A OpenRouter Golang SDK
 
 > https://openrouter.ai/docs/models
 
+### OpenRouter Limits API
+
+> https://openrouter.ai/docs/limits
+
 ## Unsupported Methods
 
 ### Completions API
