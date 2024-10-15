@@ -96,6 +96,41 @@ func GetParameters(c *openrouter.Client) func(t *testing.T) {
 			res, err := c.GetParameters(ctx, "openai/gpt-4o-mini-2024-07-18", "OpenAI")
 			if assert.NoError(t, err) {
 				t.Logf("%+v", res)
+
+				// Check Results are correct
+				//
+				// Reference:
+				// https://openrouter.ai/openai/gpt-4o-mini-2024-07-18/parameters
+
+				/**
+				 * temperature
+				 ** p10: 0
+				 ** p50: 0.5
+				 ** p90: 1
+				 */
+				assert.Equal(t, res.TemperatureP10, float64(0))
+				assert.Equal(t, res.TemperatureP50, float64(0.5))
+				assert.Equal(t, res.TemperatureP90, float64(1))
+
+				/**
+				 * top_p
+				 ** p10: 1
+				 ** p50: 1
+				 ** p90: 1
+				 */
+				assert.Equal(t, res.TopPP10, float64(1))
+				assert.Equal(t, res.TopPP50, float64(1))
+				assert.Equal(t, res.TopPP90, float64(1))
+
+				/**
+				 * repetition_penalty
+				 ** p10: 1
+				 ** p50: 1
+				 ** p90: 1
+				 */
+				assert.Equal(t, res.RepetitionPenaltyP10, float64(1))
+				assert.Equal(t, res.RepetitionPenaltyP50, float64(1))
+				assert.Equal(t, res.RepetitionPenaltyP90, float64(1))
 			}
 		})
 	}
