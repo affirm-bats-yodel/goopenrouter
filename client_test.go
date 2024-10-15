@@ -1,4 +1,4 @@
-package openrouter_test
+package goopenrouter_test
 
 import (
 	"context"
