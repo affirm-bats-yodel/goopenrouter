@@ -3,13 +3,13 @@ package openrouter
 import "time"
 
 // LimitResponse Limit Response
-type LimitResponse[number comparable] struct {
+type LimitResponse struct {
 	Label string `json:"label"`
 	// Usage Number of credits used
-	Usage number `json:"usage"`
+	Usage float64 `json:"usage"`
 	// Limit Credit limit for the key
 	// or null if unlimited
-	Limit *number `json:"limit"`
+	Limit *int64 `json:"limit"`
 	// IsFreeTier Whether the user has paid
 	// for credits before
 	IsFreeTier bool `json:"is_free_tier"`
