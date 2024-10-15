@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
 	"os"
 )
 
@@ -113,4 +114,38 @@ func newHTTPRequest(ctx context.Context, method string, endpoint string, apiKey 
 	}
 	req.Header.Add(authorizationHeader, "Bearer "+apiKey)
 	return req, nil
+}
+
+func doRequest[data any](ctx context.Context, method, endpoint, apiKey string, queryParams ...url.Values) (data, error) {
+	var body Response[data]
+
+	req, err := http.NewRequestWithContext(ctx, method, openRouterAddr+endpoint, nil)
+	if err != nil {
+		return body.Data, nil
+	}
+	req.Header.Add(authorizationHeader, "Bearer "+apiKey)
+
+	if len(queryParams) > 0 {
+		req.URL.RawQuery = queryParams[0].Encode()
+	}
+
+	res, err := newHTTPClient().Do(req)
+	if err != nil {
+		return body.Data, err
+	}
+	defer res.Body.Close()
+
+	if err := json.NewDecoder(res.Body).Decode(&body); err != nil {
+		return body.Data, err
+	}
+
+	if err := res.Body.Close(); err != nil {
+		return body.Data, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return body.Data, body.Error
+	}
+
+	return body.Data, nil
 }
