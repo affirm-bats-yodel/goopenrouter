@@ -14,5 +14,10 @@ type ClientInterface interface {
 	//
 	// Sometimes, modelID and provider can contain a slash ("/")
 	// or Whitespaces (" "). Handler MUST BE Handled.
-	GetParameters(ctx context.Context, modelID string, provider string) (*Parameters, error)
+	//
+	// - modelID: Specify a model ID, since optimal parameters vary between models.
+	//
+	// - providers: Specify a provider name to filter supported parameters
+	// for a given model by provider.
+	GetParameters(ctx context.Context, modelID string, providers ...string) (*Parameters, error)
 }
