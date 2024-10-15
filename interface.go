@@ -10,4 +10,9 @@ type ClientInterface interface {
 	GetModels(ctx context.Context, parameters ...string) ([]*Model, error)
 	// GetLimits Get Limit Information
 	GetLimits(ctx context.Context) (*Limit, error)
+	// GetParameters Get Parameter Information
+	//
+	// Sometimes, modelID and provider can contain a slash ("/")
+	// or Whitespaces (" "). Handler MUST BE Handled.
+	GetParameters(ctx context.Context, modelID string, provider string) (*Parameters, error)
 }
