@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -104,7 +103,7 @@ func doRequest[data any](ctx context.Context, method, endpoint, apiKey string, q
 		req.URL.RawQuery = queryParams[0].Encode()
 	}
 
-	log.Printf("url: %s", req.URL.String())
+	// log.Printf("url: %s", req.URL.String())
 
 	res, err := newHTTPClient().Do(req)
 	if err != nil {
