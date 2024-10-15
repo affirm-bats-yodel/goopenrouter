@@ -34,64 +34,12 @@ type Client struct {
 
 // GetLimits implements ClientInterface.
 func (c *Client) GetLimits(ctx context.Context) (*Limit, error) {
-	var (
-		lr Response[*Limit]
-	)
-
-	req, err := newHTTPRequest(ctx, "GET", "/api/v1/auth/key", c.APIKey)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := newHTTPClient().Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-
-	if err := json.NewDecoder(res.Body).Decode(&lr); err != nil {
-		return nil, err
-	}
-
-	if err := res.Body.Close(); err != nil {
-		return nil, err
-	}
-
-	if res.StatusCode != http.StatusOK {
-		return nil, lr.Error
-	}
-
-	return lr.Data, nil
+	return doRequest[*Limit](ctx, "GET", "/api/v1/auth/key", c.APIKey)
 }
 
 // GetModels implements ClientInterface.
 func (c *Client) GetModels(ctx context.Context, parameters ...string) ([]*Model, error) {
-	var lr Response[[]*Model]
-
-	req, err := newHTTPRequest(ctx, "GET", "/api/v1/models", c.APIKey)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := newHTTPClient().Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-
-	if err := json.NewDecoder(res.Body).Decode(&lr); err != nil {
-		return nil, err
-	}
-
-	if err := res.Body.Close(); err != nil {
-		return nil, err
-	}
-
-	if res.StatusCode != http.StatusOK {
-		return nil, lr.Error
-	}
-
-	return lr.Data, nil
+	return doRequest[[]*Model](ctx, "GET", "/api/v1/models", c.APIKey)
 }
 
 var _ ClientInterface = (*Client)(nil)
@@ -105,16 +53,6 @@ const (
 	openRouterAddr      = "https://openrouter.ai"
 	authorizationHeader = "Authorization"
 )
-
-// newHTTPRequest Create a http.Request
-func newHTTPRequest(ctx context.Context, method string, endpoint string, apiKey string) (*http.Request, error) {
-	req, err := http.NewRequestWithContext(ctx, method, openRouterAddr+endpoint, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add(authorizationHeader, "Bearer "+apiKey)
-	return req, nil
-}
 
 func doRequest[data any](ctx context.Context, method, endpoint, apiKey string, queryParams ...url.Values) (data, error) {
 	var body Response[data]
