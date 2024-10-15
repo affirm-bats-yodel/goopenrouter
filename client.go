@@ -52,6 +52,22 @@ func (c *Client) GetModels(ctx context.Context, parameters ...string) ([]*Model,
 	return doRequest[[]*Model](ctx, "GET", "/api/v1/models", c.APIKey)
 }
 
+// GetParameters implements ClientInterface.
+func (c *Client) GetParameters(ctx context.Context, modelID string, providers ...string) (*Parameters, error) {
+	var (
+		endpoint = "/api/v1/parameters"
+		uvs      url.Values
+	)
+
+	endpoint = endpoint + url.QueryEscape(modelID)
+
+	if providers != nil && providers[0] != "" {
+		uvs.Add("provider", url.QueryEscape(providers[0]))
+	}
+
+	return doRequest[*Parameters](ctx, "GET", endpoint, c.APIKey, uvs)
+}
+
 var _ ClientInterface = (*Client)(nil)
 
 // newHTTPClient Create a new http.Client
