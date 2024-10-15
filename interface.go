@@ -9,5 +9,5 @@ type ClientInterface interface {
 	// GetModels Get Model Information
 	GetModels(ctx context.Context, parameters ...string)
 	// GetLimits Get Limit Information
-	GetLimits(ctx context.Context) (*LimitResponse, error)
+	GetLimits(ctx context.Context) (*Limit, error)
 }
