@@ -10,7 +10,7 @@ import (
 )
 
 func TestClient(t *testing.T) {
-	c, err := openrouter.NewClient()
+	c, err := openrouter.NewClientFromEnv()
 	if err != nil {
 		t.Fatal(err)
 	}
