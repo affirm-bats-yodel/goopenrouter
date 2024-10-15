@@ -30,9 +30,9 @@ type Client struct {
 }
 
 // GetLimits implements ClientInterface.
-func (c *Client) GetLimits(ctx context.Context) (*LimitResponse, error) {
+func (c *Client) GetLimits(ctx context.Context) (*Limit, error) {
 	var (
-		lr Response[LimitResponse]
+		lr Response[Limit]
 	)
 
 	req, err := newHTTPRequest(ctx, "GET", "/api/v1/auth/key", c.APIKey)
