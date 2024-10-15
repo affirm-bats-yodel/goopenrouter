@@ -15,13 +15,19 @@ to list models, limits and parameters via Go.
 
 > https://openrouter.ai/docs/models
 
+* GoDoc Example: [GetModel](https://pkg.go.dev/github.com/affirm-bats-yodel/goopenrouter#example-Client.GetModels)
+
 ### OpenRouter Limits API
 
 > https://openrouter.ai/docs/limits
 
+* GoDoc Example: [GetLimits](https://pkg.go.dev/github.com/affirm-bats-yodel/goopenrouter#example-Client.GetLimits)
+
 ### OpenRouter Parameters API
 
 > https://openrouter.ai/docs/parameters-api
+
+* GoDoc Example: [GetParameters](https://pkg.go.dev/github.com/affirm-bats-yodel/goopenrouter#example-Client.GetParameters)
 
 ## Unsupported Methods or Limitation
 
