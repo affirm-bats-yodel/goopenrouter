@@ -42,7 +42,7 @@ func GetModels(c *openrouter.Client) func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 		defer cancel()
 
-		m, err := c.GetModels(ctx)
+		m, err := c.GetModels(ctx, "temperature", "top_p", "tools")
 		if assert.NoError(t, err) && assert.NotEmpty(t, m) {
 			for _, elem := range m {
 				if assert.NotEmpty(t, elem.ID) {
