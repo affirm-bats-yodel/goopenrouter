@@ -59,11 +59,15 @@ func (c *Client) GetParameters(ctx context.Context, modelID string, providers ..
 		uvs      url.Values
 	)
 
-	endpoint = endpoint + url.QueryEscape(modelID)
+	endpoint = endpoint + "/" + url.QueryEscape(modelID)
 
 	if providers != nil && providers[0] != "" {
+		uvs = make(url.Values)
 		uvs.Add("provider", url.QueryEscape(providers[0]))
 	}
+
+	// log.Printf("endpoint: %s", endpoint)
+	// log.Printf("query: %s", uvs)
 
 	return doRequest[*Parameters](ctx, "GET", endpoint, c.APIKey, uvs)
 }
