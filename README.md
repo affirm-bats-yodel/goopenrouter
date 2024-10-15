@@ -1,6 +1,8 @@
 # openrouter.go
 
-A OpenRouter Golang SDK
+[![Go Reference](https://pkg.go.dev/badge/github.com/affirm-bats-yodel/openrouter.go.svg)](https://pkg.go.dev/github.com/affirm-bats-yodel/openrouter.go)
+
+A [OpenRouter](https://openrouter.ai) Golang SDK
 
 ## Supported Endpoints
 
