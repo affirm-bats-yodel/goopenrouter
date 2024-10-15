@@ -25,6 +25,8 @@ func NewClient() (*Client, error) {
 }
 
 // Client OpenRouter Client Implementation
+//
+// TODO: Refactor to minimize Duplicated Codes
 type Client struct {
 	APIKey string
 }
