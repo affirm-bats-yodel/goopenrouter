@@ -16,6 +16,7 @@ func TestClient(t *testing.T) {
 	}
 	t.Run("GetLimits", GetLimits(c))
 	t.Run("GetModels", GetModels(c))
+	t.Run("GetParameters", GetParameters(c))
 }
 
 func GetLimits(c *openrouter.Client) func(t *testing.T) {
@@ -76,5 +77,26 @@ func GetModels(c *openrouter.Client) func(t *testing.T) {
 				// }
 			}
 		}
+	}
+}
+
+func GetParameters(c *openrouter.Client) func(t *testing.T) {
+	return func(t *testing.T) {
+		t.Run("ShouldError", func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+			defer cancel()
+
+			_, err := c.GetParameters(ctx, "some/model", "SomeProvider")
+			assert.Error(t, err)
+		})
+		t.Run("Success", func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+			defer cancel()
+
+			res, err := c.GetParameters(ctx, "openai/gpt-4o-mini-2024-07-18", "OpenAI")
+			if assert.NoError(t, err) {
+				t.Logf("%+v", res)
+			}
+		})
 	}
 }
