@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -53,7 +54,7 @@ func (c *Client) GetModels(ctx context.Context, supportedParameters ...string) (
 	var uvs url.Values
 	if len(supportedParameters) > 0 {
 		uvs = make(url.Values)
-		uvs.Add("supported_parameters", url.QueryEscape(strings.Join(supportedParameters, ",")))
+		uvs.Add("supported_parameters", strings.Join(supportedParameters, ","))
 	}
 	return doRequest[[]*Model](ctx, "GET", "/api/v1/models", c.APIKey, uvs)
 }
@@ -102,6 +103,8 @@ func doRequest[data any](ctx context.Context, method, endpoint, apiKey string, q
 	if len(queryParams) > 0 {
 		req.URL.RawQuery = queryParams[0].Encode()
 	}
+
+	log.Printf("url: %s", req.URL.String())
 
 	res, err := newHTTPClient().Do(req)
 	if err != nil {
