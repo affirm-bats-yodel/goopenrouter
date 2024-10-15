@@ -2,6 +2,15 @@ package openrouter
 
 import "fmt"
 
+// IsErrorResponse Check error is ErrorResponse
+func IsErrorResponse(e error) bool {
+	if e == nil {
+		return false
+	}
+	_, b := e.(*ErrorResponse)
+	return b
+}
+
 // ErrorResponse Error Response from OpenRouter
 //
 // Compatible with Golang's Error interface.
