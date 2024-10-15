@@ -32,7 +32,7 @@ type Client struct {
 // GetLimits implements ClientInterface.
 func (c *Client) GetLimits(ctx context.Context) (*Limit, error) {
 	var (
-		lr Response[Limit]
+		lr Response[*Limit]
 	)
 
 	req, err := newHTTPRequest(ctx, "GET", "/api/v1/auth/key", c.APIKey)
@@ -62,8 +62,33 @@ func (c *Client) GetLimits(ctx context.Context) (*Limit, error) {
 }
 
 // GetModels implements ClientInterface.
-func (c *Client) GetModels(ctx context.Context, parameters ...string) {
-	panic("unimplemented")
+func (c *Client) GetModels(ctx context.Context, parameters ...string) ([]*Model, error) {
+	var lr Response[[]*Model]
+
+	req, err := newHTTPRequest(ctx, "GET", "/api/v1/models", c.APIKey)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := newHTTPClient().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if err := json.NewDecoder(res.Body).Decode(&lr); err != nil {
+		return nil, err
+	}
+
+	if err := res.Body.Close(); err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		return nil, lr.Error
+	}
+
+	return lr.Data, nil
 }
 
 var _ ClientInterface = (*Client)(nil)
