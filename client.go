@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 )
 
 // EnvOpenRouterKey a Environment Key for OpenRouter API Key
@@ -48,8 +49,13 @@ func (c *Client) GetLimits(ctx context.Context) (*Limit, error) {
 }
 
 // GetModels implements ClientInterface.
-func (c *Client) GetModels(ctx context.Context, parameters ...string) ([]*Model, error) {
-	return doRequest[[]*Model](ctx, "GET", "/api/v1/models", c.APIKey)
+func (c *Client) GetModels(ctx context.Context, supportedParameters ...string) ([]*Model, error) {
+	var uvs url.Values
+	if len(supportedParameters) > 0 {
+		uvs = make(url.Values)
+		uvs.Add("supported_parameters", url.QueryEscape(strings.Join(supportedParameters, ",")))
+	}
+	return doRequest[[]*Model](ctx, "GET", "/api/v1/models", c.APIKey, uvs)
 }
 
 // GetParameters implements ClientInterface.
