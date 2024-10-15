@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/affirm-bats-yodel/openrouter"
+	openrouter "github.com/affirm-bats-yodel/goopenrouter"
 	"github.com/stretchr/testify/assert"
 )
 
