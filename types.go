@@ -41,13 +41,15 @@ func (r *LimitRateLimit) GetInterval() time.Duration {
 
 // Model Information about LLM Model
 type Model struct {
-	ID            string             `json:"id"`
-	Name          string             `json:"name"`
-	Created       int64              `json:"created"`
-	Description   string             `json:"description"`
-	Pricing       *ModelPricing      `json:"pricing"`
-	ContextLength int64              `json:"context_length"`
-	Architecture  *ModelArchitecture `json:"architecture"`
+	ID               string                 `json:"id"`
+	Name             string                 `json:"name"`
+	Created          int64                  `json:"created"`
+	Description      string                 `json:"description"`
+	Pricing          *ModelPricing          `json:"pricing"`
+	ContextLength    int64                  `json:"context_length"`
+	Architecture     *ModelArchitecture     `json:"architecture"`
+	TopProvider      *ModelTopProvider      `json:"top_provider"`
+	PerRequestLimits *ModelPerRequestLimits `json:"per_request_limits"`
 }
 
 type ModelPricing struct {
@@ -70,6 +72,6 @@ type ModelTopProvider struct {
 }
 
 type ModelPerRequestLimits struct {
-	PromptTokens     any `json:"prompt_tokens"`
-	CompletionTokens any `json:"completion_tokens"`
+	PromptTokens     string `json:"prompt_tokens"`
+	CompletionTokens string `json:"completion_tokens"`
 }
