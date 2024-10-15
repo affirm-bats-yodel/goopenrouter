@@ -2,6 +2,11 @@ package openrouter
 
 import "time"
 
+type Response[data any] struct {
+	Data  *data        `json:"data,omitempty"`
+	Error *ErrorDetail `json:"error,omitempty"`
+}
+
 // LimitResponse Limit Response
 type LimitResponse struct {
 	Label string `json:"label"`
