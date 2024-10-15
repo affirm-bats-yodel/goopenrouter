@@ -14,15 +14,25 @@ const EnvOpenRouterKey = "OPENROUTER_API_KEY"
 
 var ErrEnvNoRouterKey = errors.New("error: no API key exist on $" + EnvOpenRouterKey)
 
-// NewClient Create new OpenRouter Client
-func NewClient() (*Client, error) {
+// NewClient Create a New Client
+func NewClient(apiKey string) *Client {
+	return &Client{
+		APIKey: apiKey,
+	}
+}
+
+// NewClientFromEnv Create a New Client
+//
+// Check Environment Variable $OPENROUTER_API_KEY
+// and it'll return an error if it does not exist.
+//
+// If Exist, value will be used for Authentication
+func NewClientFromEnv() (*Client, error) {
 	v := os.Getenv(EnvOpenRouterKey)
 	if v == "" {
 		return nil, ErrEnvNoRouterKey
 	}
-	return &Client{
-		APIKey: v,
-	}, nil
+	return NewClient(v), nil
 }
 
 // Client OpenRouter Client Implementation
