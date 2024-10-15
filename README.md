@@ -1,8 +1,13 @@
-# openrouter.go
+# goopenrouter 
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/affirm-bats-yodel/openrouter.go.svg)](https://pkg.go.dev/github.com/affirm-bats-yodel/openrouter.go)
+[![Go Reference](https://pkg.go.dev/badge/github.com/affirm-bats-yodel/goopenrouter.svg)](https://pkg.go.dev/github.com/affirm-bats-yodel/goopenrouter)
 
-A [OpenRouter](https://openrouter.ai) Golang SDK
+A [OpenRouter](https://openrouter.ai) Golang Client
+
+## Why?
+
+I've started to use OpenRouter, however there's no ways 
+to list models, limits and parameters via Go.
 
 ## Supported Endpoints
 
@@ -18,8 +23,12 @@ A [OpenRouter](https://openrouter.ai) Golang SDK
 
 > https://openrouter.ai/docs/parameters-api
 
-## Unsupported Methods
+## Unsupported Methods or Limitation
 
 ### Completions API
 
 * Use OpenAI compatible SDKs.
+
+## Having Trouble?
+
+* You can Raise a New Issue or make a Pull Request.
